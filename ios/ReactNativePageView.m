@@ -245,24 +245,42 @@
     self.reactPageIndicatorView.currentPage = index;
     long diff = labs(index - _currentIndex);
     
-    if (isForward && diff > 0) {
-        for (NSInteger i=_currentIndex; i<=index; i++) {
-            if (i == _currentIndex) {
-                continue;
-            }
-            [self goToViewController:i direction:direction animated:animated shouldCallOnPageSelected: i == index];
-        }
-    }
+    // if (isForward && diff > 0) {
+    //     for (NSInteger i=_currentIndex; i<=index; i++) {
+    //         if (i == _currentIndex) {
+    //             continue;
+    //         }
+    //         [self goToViewController:i direction:direction animated:animated shouldCallOnPageSelected: i == index];
+    //     }
+    // }
     
-    if (!isForward && diff > 0) {
-        for (NSInteger i=_currentIndex; i>=index; i--) {
-            // Prevent removal of one or many pages at a time
-            if (index == _currentIndex || i >= numberOfPages) {
-                continue;
-            }
-            [self goToViewController:i direction:direction animated:animated shouldCallOnPageSelected: i == index];
-        }
+    // if (!isForward && diff > 0) {
+    //     for (NSInteger i=_currentIndex; i>=index; i--) {
+    //         // Prevent removal of one or many pages at a time
+    //         if (index == _currentIndex || i >= numberOfPages) {
+    //             continue;
+    //         }
+    //         [self goToViewController:i direction:direction animated:animated shouldCallOnPageSelected: i == index];
+    //     }
+    // }
+    if (index > _currentIndex)
+    {
+	for (NSInteger i = _currentIndex; i <= index; i++)
+	{
+		if (i == _currentIndex)
+		{
+			continue;
+		}[self goToViewController: i direction: direction animated: animated shouldCallOnPageSelected: i == index];
+	}
     }
+    if (index < _currentIndex)
+    {
+	for (NSInteger i = _currentIndex; i >= index; i--)
+	{
+		// Prevent removal of one or many pages at a time 
+		if (index == _currentIndex || i >= numberOfPages) { 	continue;
+    }[self goToViewController:i direction:direction animated:animated shouldCallOnPageSelected: i == index];
+    } }
     
     if (diff == 0) {
         [self goToViewController:index direction:direction animated:animated shouldCallOnPageSelected:YES];
